@@ -1,0 +1,86 @@
+@extends('layouts.front_end')
+
+@section('content')
+<div class="main-content">
+    <!-- Section: inner-header -->
+    <section class="inner-header divider parallax layer-overlay overlay-dark-8" data-bg-img="{{ asset('upload/images/logo/'.app_config('BreadCumb'))}}">
+      <div class="container pt-60 pb-60">
+        <!-- Section Content -->
+        <div class="section-content">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h2 class="title text-white" style="font-family: 'Montserrat', sans-serif;font-weight: 600">{{translate('Recover Password Now')}} </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+            
+
+
+     <!-- Section: Donation -->
+    <section id="donation">
+      <div class="container mt-0 pt-50">
+        <div class="section-content">
+          <div class="row">
+           <div class="col-md-2">
+
+       
+       
+           </div>
+            <div class="col-md-8 wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.3s">
+              <h3 class="title text-black-666 line-bottom">{{translate('Recover_password')}}  <span class="text-theme-colored"> Now!</span></h3>
+
+                <?php if(Session::has('message')): ?>
+              <div class="alert alert-success">{{ Session::get('message') }}.</div>
+              <?php endif; ?>
+
+              @if (count($errors) > 0)
+              @foreach ($errors->all() as $error)   
+            <div class="alert alert-danger">{{ $error }}</div>
+              @endforeach
+              @endif
+            
+              <!-- ===== START: Paypal Both Onetime/Recurring Form ===== -->
+              <form id="paypal_donate_form_onetime_recurring" action="{{ route('member.password.email') }}" method="post">
+              @csrf
+                <div class="row">
+
+                
+                        <div class="col-md-12">
+                    <div class="form-group mb-20">
+                         <label><strong>{{ translate('email') }}</strong></label> <br>
+                        <input type="text" class="form-control" id="email" name="email" placeholder="{{ translate('email') }}" value="{{ old('email') }}"> 
+                                            @if ($errors->has('email'))
+                                   <font color="red">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </font>
+                                @endif
+                                  </div>
+                    </div>
+                    
+                    
+
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-flat btn-dark btn-theme-colored mt-10 pl-30 pr-30" data-loading-text="Please wait...">{{translate(' Send Password Reset Link')}}</button>
+                    </div>
+
+                  </div>
+
+                 
+                </div>
+              </form>      
+            </div>
+               <div class="col-md-2">
+           </div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- end main-content -->
+@endsection
+
